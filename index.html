@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicholas Rueb | Digital Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#home">Nicholas Rueb</a>
+      <nav class="main-nav" id="mainNav">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#activities">Activities</a>
+        <a href="#contributions">Contributions</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="menu-button" id="menuButton" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero panel" id="home">
+        <div class="hero-copy">
+          <span class="eyebrow">High school student • Coder • Robotics enthusiast • Maker</span>
+          <h1>Designing future-ready systems with code, hardware, and engineering thinking.</h1>
+          <p>I'm Nicholas, a driven high school student building robotics, software, and engineering projects that solve real problems with polished UX and pro-level workflows.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">Explore Projects</a>
+            <a class="button secondary" href="#contact">Connect</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <div class="hero-card animate-float">
+            <div class="hero-card-tag">Featured skills</div>
+            <ul>
+              <li>Coding: Python, JavaScript, C++</li>
+              <li>Robotics: sensors, control systems, automation</li>
+              <li>Engineering: prototyping, CAD, systems thinking</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="summary-grid panel" aria-label="Portfolio highlights">
+        <article class="summary-card animate-reveal">
+          <h2>Personal Projects</h2>
+          <p>Interactive apps, automation tools, and polished UI experiences built with thoughtful design and modern front-end patterns.</p>
+        </article>
+        <article class="summary-card animate-reveal delay-1">
+          <h2>Robotics</h2>
+          <p>Autonomous systems, competitive builds, and control logic for real-world robotics challenges.</p>
+        </article>
+        <article class="summary-card animate-reveal delay-2">
+          <h2>Engineering</h2>
+          <p>Product design, mechanical prototypes, and systems documentation that support strong technical execution.</p>
+        </article>
+      </section>
+
+      <section class="section-panel" id="about">
+        <div class="section-header">
+          <span class="section-label">About me</span>
+          <h2>Creating work that feels intuitive, reliable, and modern.</h2>
+        </div>
+        <div class="about-grid animate-reveal">
+          <div>
+            <p>I combine code, robotics, and engineering to build portfolio work that is both technically strong and user-focused. I enjoy solving problems, collaborating on teams, and sharing projects that make an impact.</p>
+          </div>
+          <div class="about-list">
+            <div>
+              <strong>Interests</strong>
+              <p>UX design, embedded systems, automation, open-source, STEM mentorship.</p>
+            </div>
+            <div>
+              <strong>Skills</strong>
+              <p>JavaScript, Python, C++, HTML/CSS, SolidWorks, Figma, Arduino, ROS.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-panel" id="projects">
+        <div class="section-header">
+          <span class="section-label">Projects</span>
+          <h2>Personal coding, robotics, and engineering work.</h2>
+          <p class="section-subtitle">Filter the project type and explore details for each contribution.</p>
+        </div>
+        <div class="project-filter" role="tablist" aria-label="Project categories">
+          <button class="filter-button active" data-filter="all">All</button>
+          <button class="filter-button" data-filter="coding">Coding</button>
+          <button class="filter-button" data-filter="robotics">Robotics</button>
+          <button class="filter-button" data-filter="engineering">Engineering</button>
+          <button class="filter-button" data-filter="contributions">Contributions</button>
+        </div>
+        <div class="project-grid">
+          <article class="project-card coding animate-reveal">
+            <div class="project-eyebrow">Coding Project</div>
+            <h3>Portfolio Website Redesign</h3>
+            <p>Modern, animated web interface built with responsive design and polished UX. Includes project highlights, activity sections, and live links.</p>
+            <div class="project-meta">UX/UI · React-style interaction · Performance</div>
+            <div class="project-links">
+              <a href="#" target="_blank">View live</a>
+              <a href="#" target="_blank">Source code</a>
+            </div>
+          </article>
+          <article class="project-card robotics animate-reveal delay-1">
+            <div class="project-eyebrow">Robotics Build</div>
+            <h3>Autonomous Rescue Bot</h3>
+            <p>Prototype robot designed to navigate obstacles and locate recovery targets using sensors, path planning, and control logic.</p>
+            <div class="project-meta">Sensors · C++ · Control systems</div>
+            <div class="project-links">
+              <a href="#" target="_blank">Project notes</a>
+              <a href="#" target="_blank">Video demo</a>
+            </div>
+          </article>
+          <article class="project-card engineering animate-reveal delay-2">
+            <div class="project-eyebrow">Engineering Challenge</div>
+            <h3>Smart Workbench System</h3>
+            <p>Design and prototype of a modular workbench with integrated tool tracking, clear documentation, and build-ready schematics.</p>
+            <div class="project-meta">CAD · Prototyping · Systems thinking</div>
+            <div class="project-links">
+              <a href="#" target="_blank">Design files</a>
+              <a href="#" target="_blank">Read more</a>
+            </div>
+          </article>
+          <article class="project-card contributions animate-reveal delay-3">
+            <div class="project-eyebrow">Community Contribution</div>
+            <h3>STEM Club Workshop Series</h3>
+            <p>Organized and taught workshops on basic robotics, coding fundamentals, and project design for younger students.</p>
+            <div class="project-meta">Mentorship · Presentation · Collaboration</div>
+            <div class="project-links">
+              <a href="#" target="_blank">Workshop schedule</a>
+              <a href="#" target="_blank">Resource pack</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-panel" id="activities">
+        <div class="section-header">
+          <span class="section-label">Activities</span>
+          <h2>Clubs, events, and extracurricular leadership.</h2>
+        </div>
+        <div class="activity-list animate-reveal">
+          <div class="activity-card">
+            <h3>Robotics Team</h3>
+            <p>Lead programmer and systems integrator for the school robotics team. Built autonomous routines and helped mentor new members.</p>
+            <span class="activity-badge">Captain</span>
+          </div>
+          <div class="activity-card">
+            <h3>Code Club</h3>
+            <p>Created guided lessons on web development and Python automation, and supported students in building portfolio projects.</p>
+            <span class="activity-badge">Mentor</span>
+          </div>
+          <div class="activity-card">
+            <h3>Engineering Design</h3>
+            <p>Worked on collaborative design challenges, including product research, CAD modeling, and prototype testing.</p>
+            <span class="activity-badge">Member</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-panel" id="contributions">
+        <div class="section-header">
+          <span class="section-label">Contributions</span>
+          <h2>Open-source, teamwork, and community support.</h2>
+        </div>
+        <div class="contributions-grid animate-reveal">
+          <article class="contribution-card">
+            <h3>Open-source helper script</h3>
+            <p>Published a Python utility that automates file processing for student team projects and improved team productivity.</p>
+            <a href="#" target="_blank">View repository</a>
+          </article>
+          <article class="contribution-card">
+            <h3>Project documentation</h3>
+            <p>Created accessible project documentation and build guides for robotics and engineering teams to support knowledge sharing.</p>
+            <a href="#" target="_blank">Read documentation</a>
+          </article>
+          <article class="contribution-card">
+            <h3>Design mentorship</h3>
+            <p>Guided peers through UX and interaction decisions for club projects to make interfaces easier to use.</p>
+            <a href="#" target="_blank">See workshop</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-panel contact-panel" id="contact">
+        <div class="section-header">
+          <span class="section-label">Contact</span>
+          <h2>Ready to collaborate or hear about new opportunities.</h2>
+        </div>
+        <p class="contact-copy animate-reveal">Fill in your details and links below to make it easy for visitors to connect with you, review your projects, and see your latest work.</p>
+        <div class="contact-actions animate-reveal delay-1">
+          <a class="button primary" href="mailto:nicholas@example.com">Email me</a>
+          <a class="button secondary" href="#" target="_blank">LinkedIn</a>
+          <a class="button secondary" href="#" target="_blank">GitHub</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for Nicholas Rueb | High school coding, robotics, and engineering portfolio.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
