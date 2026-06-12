@@ -4,21 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nicholas Rueb | Digital Portfolio</title>
+  <meta name="description" content="High school student building robotics, software, and engineering projects with pro-level workflows." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
+  <canvas id="particleCanvas"></canvas>
+  
+  <div class="grid-overlay"></div>
+  <div class="scan-line"></div>
+  
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  
+  <div class="liquid-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
   <div class="page-shell">
     <header class="topbar">
-      <a class="brand" href="#home">Nicholas Rueb</a>
+      <a class="brand" href="index.html">
+        <span class="brand-glow">NR</span>
+        <span class="brand-text">Nicholas Rueb</span>
+      </a>
       <nav class="main-nav" id="mainNav">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#activities">Activities</a>
-        <a href="#contributions">Contributions</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <button class="menu-button" id="menuButton" aria-label="Open navigation">
         <span></span><span></span><span></span>
@@ -26,186 +44,178 @@
     </header>
 
     <main>
-      <section class="hero panel" id="home">
-        <div class="hero-copy">
-          <span class="eyebrow">High school student • Coder • Robotics enthusiast • Maker</span>
-          <h1>Designing future-ready systems with code, hardware, and engineering thinking.</h1>
-          <p>I'm Nicholas, a driven high school student building robotics, software, and engineering projects that solve real problems with polished UX and pro-level workflows.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#projects">Explore Projects</a>
-            <a class="button secondary" href="#contact">Connect</a>
+      <section class="hero" id="home">
+        <div class="hero-content">
+          <div class="hero-badge animate-reveal">
+            <span class="badge-dot"></span>
+            <span>Available for collaboration</span>
+          </div>
+          <h1 class="hero-title animate-reveal">
+            <span class="title-line">Designing</span>
+            <span class="title-line gradient-text">Future-Ready</span>
+            <span class="title-line">Systems</span>
+          </h1>
+          <p class="hero-subtitle animate-reveal">
+            High school student building robotics, software, and engineering projects 
+            with polished UX and pro-level workflows.
+          </p>
+          <div class="hero-stats animate-reveal">
+            <div class="stat">
+              <span class="stat-value" data-count="12">0</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" data-count="3">0</span>
+              <span class="stat-label">Years Coding</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" data-count="5">0</span>
+              <span class="stat-label">Awards</span>
+            </div>
+          </div>
+          <div class="hero-actions animate-reveal">
+            <a class="button primary magnetic" href="projects.html">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Explore Projects
+            </a>
+            <a class="button secondary magnetic" href="contact.html">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Get in Touch
+            </a>
           </div>
         </div>
-        <div class="hero-panel">
-          <div class="hero-card animate-float">
-            <div class="hero-card-tag">Featured skills</div>
-            <ul>
-              <li>Coding: Python, JavaScript, C++</li>
-              <li>Robotics: sensors, control systems, automation</li>
-              <li>Engineering: prototyping, CAD, systems thinking</li>
-            </ul>
+        
+        <div class="hero-visual">
+          <div class="hero-card glass-card animate-reveal">
+            <div class="card-header">
+              <span class="card-tag">Featured Skills</span>
+              <div class="card-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-icon">
+                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <div class="skill-info">
+                  <span class="skill-name">Coding</span>
+                  <span class="skill-detail">Python, JavaScript, C++</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">
+                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </div>
+                <div class="skill-info">
+                  <span class="skill-name">Robotics</span>
+                  <span class="skill-detail">Sensors, control systems</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon">
+                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <div class="skill-info">
+                  <span class="skill-name">Engineering</span>
+                  <span class="skill-detail">CAD, prototyping</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-
-      <section class="summary-grid panel" aria-label="Portfolio highlights">
-        <article class="summary-card animate-reveal">
-          <h2>Personal Projects</h2>
-          <p>Interactive apps, automation tools, and polished UI experiences built with thoughtful design and modern front-end patterns.</p>
-        </article>
-        <article class="summary-card animate-reveal delay-1">
-          <h2>Robotics</h2>
-          <p>Autonomous systems, competitive builds, and control logic for real-world robotics challenges.</p>
-        </article>
-        <article class="summary-card animate-reveal delay-2">
-          <h2>Engineering</h2>
-          <p>Product design, mechanical prototypes, and systems documentation that support strong technical execution.</p>
-        </article>
       </section>
 
       <section class="section-panel" id="about">
         <div class="section-header">
-          <span class="section-label">About me</span>
-          <h2>Creating work that feels intuitive, reliable, and modern.</h2>
+          <div class="section-tag animate-reveal">
+            <span class="tag-line"></span>
+            <span>About Me</span>
+          </div>
+          <h2 class="section-title animate-reveal">
+            Creating work that feels 
+            <span class="gradient-text">intuitive, reliable, and modern.</span>
+          </h2>
         </div>
-        <div class="about-grid animate-reveal">
-          <div>
+        <div class="about-content animate-reveal">
+          <div class="about-text">
             <p>I combine code, robotics, and engineering to build portfolio work that is both technically strong and user-focused. I enjoy solving problems, collaborating on teams, and sharing projects that make an impact.</p>
           </div>
-          <div class="about-list">
-            <div>
-              <strong>Interests</strong>
+          <div class="about-cards">
+            <div class="glass-card about-card">
+              <h3>Interests</h3>
               <p>UX design, embedded systems, automation, open-source, STEM mentorship.</p>
             </div>
-            <div>
-              <strong>Skills</strong>
-              <p>JavaScript, Python, C++, HTML/CSS, SolidWorks, Figma, Arduino, ROS.</p>
+            <div class="glass-card about-card">
+              <h3>Skills</h3>
+              <p>JavaScript, Python, C++, HTML/CSS, Figma, Graphic Design, Arduino, ROS.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-panel" id="projects">
+      <section class="section-panel" id="highlights">
         <div class="section-header">
-          <span class="section-label">Projects</span>
-          <h2>Personal coding, robotics, and engineering work.</h2>
-          <p class="section-subtitle">Filter the project type and explore details for each contribution.</p>
+          <div class="section-tag animate-reveal">
+            <span class="tag-line"></span>
+            <span>Portfolio Highlights</span>
+          </div>
+          <h2 class="section-title animate-reveal">
+            What I <span class="gradient-text">build and create.</span>
+          </h2>
         </div>
-        <div class="project-filter" role="tablist" aria-label="Project categories">
-          <button class="filter-button active" data-filter="all">All</button>
-          <button class="filter-button" data-filter="coding">Coding</button>
-          <button class="filter-button" data-filter="robotics">Robotics</button>
-          <button class="filter-button" data-filter="engineering">Engineering</button>
-          <button class="filter-button" data-filter="contributions">Contributions</button>
-        </div>
-        <div class="project-grid">
-          <article class="project-card coding animate-reveal">
-            <div class="project-eyebrow">Coding Project</div>
-            <h3>Portfolio Website Redesign</h3>
-            <p>Modern, animated web interface built with responsive design and polished UX. Includes project highlights, activity sections, and live links.</p>
-            <div class="project-meta">UX/UI · React-style interaction · Performance</div>
-            <div class="project-links">
-              <a href="#" target="_blank">View live</a>
-              <a href="#" target="_blank">Source code</a>
+        <div class="highlights-grid">
+          <a href="projects.html" class="highlight-card glass-card animate-reveal magnetic">
+            <div class="highlight-icon">
+              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
-          </article>
-          <article class="project-card robotics animate-reveal delay-1">
-            <div class="project-eyebrow">Robotics Build</div>
-            <h3>Autonomous Rescue Bot</h3>
-            <p>Prototype robot designed to navigate obstacles and locate recovery targets using sensors, path planning, and control logic.</p>
-            <div class="project-meta">Sensors · C++ · Control systems</div>
-            <div class="project-links">
-              <a href="#" target="_blank">Project notes</a>
-              <a href="#" target="_blank">Video demo</a>
+            <h3>Personal Projects</h3>
+            <p>Interactive apps, automation tools, and polished UI experiences.</p>
+            <span class="highlight-arrow">&rarr;</span>
+          </a>
+          <a href="projects.html" class="highlight-card glass-card animate-reveal delay-1 magnetic">
+            <div class="highlight-icon">
+              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             </div>
-          </article>
-          <article class="project-card engineering animate-reveal delay-2">
-            <div class="project-eyebrow">Engineering Challenge</div>
-            <h3>Smart Workbench System</h3>
-            <p>Design and prototype of a modular workbench with integrated tool tracking, clear documentation, and build-ready schematics.</p>
-            <div class="project-meta">CAD · Prototyping · Systems thinking</div>
-            <div class="project-links">
-              <a href="#" target="_blank">Design files</a>
-              <a href="#" target="_blank">Read more</a>
+            <h3>Robotics</h3>
+            <p>Autonomous systems, competitive builds, and control logic.</p>
+            <span class="highlight-arrow">&rarr;</span>
+          </a>
+          <a href="projects.html" class="highlight-card glass-card animate-reveal delay-2 magnetic">
+            <div class="highlight-icon">
+              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             </div>
-          </article>
-          <article class="project-card contributions animate-reveal delay-3">
-            <div class="project-eyebrow">Community Contribution</div>
-            <h3>STEM Club Workshop Series</h3>
-            <p>Organized and taught workshops on basic robotics, coding fundamentals, and project design for younger students.</p>
-            <div class="project-meta">Mentorship · Presentation · Collaboration</div>
-            <div class="project-links">
-              <a href="#" target="_blank">Workshop schedule</a>
-              <a href="#" target="_blank">Resource pack</a>
-            </div>
-          </article>
+            <h3>Engineering</h3>
+            <p>Product design, mechanical prototypes, and systems documentation.</p>
+            <span class="highlight-arrow">&rarr;</span>
+          </a>
         </div>
       </section>
 
-      <section class="section-panel" id="activities">
-        <div class="section-header">
-          <span class="section-label">Activities</span>
-          <h2>Clubs, events, and extracurricular leadership.</h2>
-        </div>
-        <div class="activity-list animate-reveal">
-          <div class="activity-card">
-            <h3>Robotics Team</h3>
-            <p>Lead programmer and systems integrator for the school robotics team. Built autonomous routines and helped mentor new members.</p>
-            <span class="activity-badge">Captain</span>
-          </div>
-          <div class="activity-card">
-            <h3>Code Club</h3>
-            <p>Created guided lessons on web development and Python automation, and supported students in building portfolio projects.</p>
-            <span class="activity-badge">Mentor</span>
-          </div>
-          <div class="activity-card">
-            <h3>Engineering Design</h3>
-            <p>Worked on collaborative design challenges, including product research, CAD modeling, and prototype testing.</p>
-            <span class="activity-badge">Member</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-panel" id="contributions">
-        <div class="section-header">
-          <span class="section-label">Contributions</span>
-          <h2>Open-source, teamwork, and community support.</h2>
-        </div>
-        <div class="contributions-grid animate-reveal">
-          <article class="contribution-card">
-            <h3>Open-source helper script</h3>
-            <p>Published a Python utility that automates file processing for student team projects and improved team productivity.</p>
-            <a href="#" target="_blank">View repository</a>
-          </article>
-          <article class="contribution-card">
-            <h3>Project documentation</h3>
-            <p>Created accessible project documentation and build guides for robotics and engineering teams to support knowledge sharing.</p>
-            <a href="#" target="_blank">Read documentation</a>
-          </article>
-          <article class="contribution-card">
-            <h3>Design mentorship</h3>
-            <p>Guided peers through UX and interaction decisions for club projects to make interfaces easier to use.</p>
-            <a href="#" target="_blank">See workshop</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-panel contact-panel" id="contact">
-        <div class="section-header">
-          <span class="section-label">Contact</span>
-          <h2>Ready to collaborate or hear about new opportunities.</h2>
-        </div>
-        <p class="contact-copy animate-reveal">Fill in your details and links below to make it easy for visitors to connect with you, review your projects, and see your latest work.</p>
-        <div class="contact-actions animate-reveal delay-1">
-          <a class="button primary" href="mailto:nicholas@example.com">Email me</a>
-          <a class="button secondary" href="#" target="_blank">LinkedIn</a>
-          <a class="button secondary" href="#" target="_blank">GitHub</a>
+      <section class="section-panel cta-section">
+        <div class="cta-content animate-reveal">
+          <h2>Ready to collaborate?</h2>
+          <p>Let's build something amazing together.</p>
+          <a class="button primary magnetic" href="contact.html">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Contact Me
+          </a>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>Built for Nicholas Rueb | High school coding, robotics, and engineering portfolio.</p>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="brand-glow">NR</span>
+          <span>Built by Nicholas Rueb</span>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/agoofygoat" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://instagram.com/nick_rueb" target="_blank" rel="noopener">Instagram</a>
+          <a href="mailto:nicholasrueb@gmail.com">Email</a>
+        </div>
+      </div>
     </footer>
   </div>
   <script src="script.js"></script>
