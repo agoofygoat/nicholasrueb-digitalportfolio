@@ -1,0 +1,6 @@
+{"type":"server-started","port":56394,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:56394","screen_dir":"/workspaces/nicholasrueb-digitalportfolio/.compose/brainstorm/5336-1781362388/content","state_dir":"/workspaces/nicholasrueb-digitalportfolio/.compose/brainstorm/5336-1781362388/state"}
+{"type":"screen-added","file":"/workspaces/nicholasrueb-digitalportfolio/.compose/brainstorm/5336-1781362388/content/homepage-layout.html"}
+{"type":"screen-added","file":"/workspaces/nicholasrueb-digitalportfolio/.compose/brainstorm/5336-1781362388/content/texture-direction.html"}
+{"type":"screen-added","file":"/workspaces/nicholasrueb-digitalportfolio/.compose/brainstorm/5336-1781362388/content/full-design.html"}
+{"type":"screen-added","file":"/workspaces/nicholasrueb-digitalportfolio/.compose/brainstorm/5336-1781362388/content/geometric-update.html"}
+{"type":"server-stopped","reason":"idle timeout"}

@@ -1,400 +1,441 @@
-// Particle System
-class ParticleSystem {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-    this.particles = [];
-    this.mouseX = 0;
-    this.mouseY = 0;
-    this.resize();
-    this.init();
-    this.animate();
-    window.addEventListener('resize', () => this.resize());
-    document.addEventListener('mousemove', (e) => {
-      this.mouseX = e.clientX;
-      this.mouseY = e.clientY;
+(() => {
+  'use strict';
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    document.querySelectorAll('.animate-reveal').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
     });
-  }
-
-  resize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-  }
-
-  init() {
-    const count = Math.min(80, Math.floor(window.innerWidth / 20));
-    for (let i = 0; i < count; i++) {
-      this.particles.push({
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
-        size: Math.random() * 2 + 0.5,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
-        opacity: Math.random() * 0.5 + 0.2,
-        hue: 150 + Math.random() * 30
-      });
-    }
-  }
-
-  animate() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.particles.forEach((p, i) => {
-      // Mouse interaction
-      const dx = this.mouseX - p.x;
-      const dy = this.mouseY - p.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 150) {
-        const force = (150 - dist) / 150;
-        p.speedX -= (dx / dist) * force * 0.02;
-        p.speedY -= (dy / dist) * force * 0.02;
-      }
-
-      // Update position
-      p.x += p.speedX;
-      p.y += p.speedY;
-
-      // Boundary check
-      if (p.x < 0) p.x = this.canvas.width;
-      if (p.x > this.canvas.width) p.x = 0;
-      if (p.y < 0) p.y = this.canvas.height;
-      if (p.y > this.canvas.height) p.y = 0;
-
-      // Damping
-      p.speedX *= 0.99;
-      p.speedY *= 0.99;
-
-      // Draw particle
-      this.ctx.beginPath();
-      this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      this.ctx.fillStyle = `hsla(${p.hue}, 70%, 50%, ${p.opacity})`;
-      this.ctx.fill();
-
-      // Draw connections
-      for (let j = i + 1; j < this.particles.length; j++) {
-        const p2 = this.particles[j];
-        const d = Math.sqrt((p.x - p2.x) ** 2 + (p.y - p2.y) ** 2);
-        if (d < 120) {
-          this.ctx.beginPath();
-          this.ctx.moveTo(p.x, p.y);
-          this.ctx.lineTo(p2.x, p2.y);
-          this.ctx.strokeStyle = `hsla(150, 70%, 50%, ${0.1 * (1 - d / 120)})`;
-          this.ctx.lineWidth = 0.5;
-          this.ctx.stroke();
-        }
-      }
-    });
-
-    requestAnimationFrame(() => this.animate());
-  }
-}
-
-// Initialize particles
-const particleCanvas = document.getElementById('particleCanvas');
-if (particleCanvas) {
-  new ParticleSystem(particleCanvas);
-}
-
-// DOM Elements
-const nav = document.getElementById('mainNav');
-const menuButton = document.getElementById('menuButton');
-const cursorDot = document.getElementById('cursorDot');
-const cursorRing = document.getElementById('cursorRing');
-
-// Custom Cursor
-let mouseX = 0, mouseY = 0;
-let ringX = 0, ringY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  if (cursorDot) {
-    cursorDot.style.left = mouseX + 'px';
-    cursorDot.style.top = mouseY + 'px';
-  }
-});
-
-function animateCursor() {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-  if (cursorRing) {
-    cursorRing.style.left = ringX + 'px';
-    cursorRing.style.top = ringY + 'px';
-  }
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-// Cursor hover effects
-const interactiveElements = document.querySelectorAll('a, button, .glass-card, .highlight-card, .project-card, .contact-link');
-interactiveElements.forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursorRing?.classList.add('hover');
-    cursorDot?.classList.add('hover');
-  });
-  el.addEventListener('mouseleave', () => {
-    cursorRing?.classList.remove('hover');
-    cursorDot?.classList.remove('hover');
-  });
-});
-
-// Navigation toggle
-if (menuButton && nav) {
-  menuButton.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    const isOpen = nav.classList.contains('open');
-    menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target) && !menuButton.contains(e.target)) {
-      nav.classList.remove('open');
-    }
-  });
-}
-
-// Scroll reveal
-const revealElements = document.querySelectorAll('.animate-reveal');
-const intersectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      intersectionObserver.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.1,
-  rootMargin: '0px 0px -40px 0px'
-});
-
-revealElements.forEach(el => intersectionObserver.observe(el));
-
-// Counter animation
-function animateCounters() {
-  document.querySelectorAll('.stat-value[data-count]').forEach(counter => {
-    const target = parseInt(counter.dataset.count);
-    const duration = 2000;
-    const start = performance.now();
-    
-    function update(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      counter.textContent = Math.round(target * eased);
-      if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  });
-}
-
-// Trigger counters when visible
-const statsSection = document.querySelector('.hero-stats');
-if (statsSection) {
-  const statsObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      animateCounters();
-      statsObserver.disconnect();
-    }
-  }, { threshold: 0.5 });
-  statsObserver.observe(statsSection);
-}
-
-// GSAP Animations
-function initGSAP() {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    setTimeout(initGSAP, 100);
     return;
   }
 
-  gsap.registerPlugin(ScrollTrigger);
+  // ═══════════════════════════════════════════
+  // SCROLL PROGRESS BAR
+  // ═══════════════════════════════════════════
+  const progressBar = document.createElement('div');
+  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#4D8BF5,#6C5CE7);z-index:10000;width:0;border-radius:0 2px 2px 0;pointer-events:none;';
+  document.body.appendChild(progressBar);
 
-  // Hero entrance
-  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  heroTl
-    .from('.hero-badge', { opacity: 0, y: 20, duration: 0.6 })
-    .from('.hero-title .title-line', { opacity: 0, y: 40, stagger: 0.15, duration: 0.8 }, '-=0.3')
-    .from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-    .from('.hero-stats', { opacity: 0, y: 20, duration: 0.6 }, '-=0.3')
-    .from('.hero-actions', { opacity: 0, y: 20, duration: 0.6 }, '-=0.3')
-    .from('.hero-card', { opacity: 0, x: 40, rotationY: 8, duration: 1 }, '-=0.8');
-
-  // Parallax orbs
-  gsap.to('.orb-1', {
-    y: -120,
-    scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 }
-  });
-  gsap.to('.orb-2', {
-    y: 100,
-    x: -50,
-    scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1.5 }
-  });
-  gsap.to('.orb-3', {
-    y: -80,
-    scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 2 }
-  });
-
-  // Section headers
-  gsap.utils.toArray('.section-header').forEach(header => {
-    gsap.from(header, {
-      opacity: 0,
-      y: 40,
-      duration: 1,
-      scrollTrigger: { trigger: header, start: 'top 85%', scrub: 0.5 }
-    });
-  });
-
-  // Cards stagger
-  gsap.utils.toArray('.highlight-card, .project-card').forEach((card, i) => {
-    gsap.from(card, {
-      opacity: 0,
-      y: 40,
-      scale: 0.96,
-      duration: 0.7,
-      delay: (i % 3) * 0.1,
-      scrollTrigger: { trigger: card, start: 'top 90%', toggleActions: 'play none none none' }
-    });
-  });
-
-  // Magnetic buttons
-  document.querySelectorAll('.magnetic').forEach(el => {
-    el.addEventListener('mousemove', (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      gsap.to(el, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: 'power2.out' });
-    });
-    el.addEventListener('mouseleave', () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' });
-    });
-  });
-
-  // Hero card tilt
-  const heroCard = document.querySelector('.hero-card');
-  if (heroCard) {
-    heroCard.addEventListener('mousemove', (e) => {
-      const rect = heroCard.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      gsap.to(heroCard, {
-        rotationY: x * 12,
-        rotationX: -y * 12,
-        duration: 0.4,
-        ease: 'power2.out',
-        transformPerspective: 1000
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scroll = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        progressBar.style.width = (scroll * 100) + '%';
+        ticking = false;
       });
-    });
-    heroCard.addEventListener('mouseleave', () => {
-      gsap.to(heroCard, { rotationY: 0, rotationX: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
-    });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // ═══════════════════════════════════════════
+  // GSAP LOADER
+  // ═══════════════════════════════════════════
+  function onReady(fn) {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      fn();
+    } else {
+      setTimeout(() => onReady(fn), 100);
+    }
   }
 
-  // Project card tilt
-  document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      gsap.to(card, {
-        rotationY: x * 8,
-        rotationX: -y * 8,
-        duration: 0.3,
-        ease: 'power2.out',
-        transformPerspective: 800
+  onReady(() => {
+    // ═══════════════════════════════════════════
+    // HERO — Blueprint crosshair draw + text reveal
+    // ═══════════════════════════════════════════
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      // Split title into chars
+      const titleEl = hero.querySelector('.hero-title');
+      if (titleEl && !titleEl.dataset.split) {
+        const text = titleEl.textContent;
+        titleEl.innerHTML = '';
+        text.split('').forEach(ch => {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = ch === ' ' ? '\u00a0' : ch;
+          span.style.display = 'inline-block';
+          titleEl.appendChild(span);
+        });
+        titleEl.dataset.split = '1';
+      }
+
+      // Hero scrub timeline
+      const heroTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.2
+        }
+      });
+
+      heroTl
+        .from('.hero-crosshair', { scale: 0, rotation: -90, opacity: 0, duration: 0.3, ease: 'power2.out' })
+        .from('.hero-badge', { opacity: 0, y: 15, duration: 0.1 }, 0)
+        .from('.hero-title .char', {
+          y: 40, opacity: 0,
+          stagger: 0.015, duration: 0.25
+        }, 0.05)
+        .from('.hero-accent', { opacity: 0, y: 10, duration: 0.15 }, 0.25)
+        .from('.hero-subtitle', { opacity: 0, y: 15, duration: 0.15 }, 0.35)
+        .from('.hero-actions .btn', { x: -20, opacity: 0, stagger: 0.03, duration: 0.12 }, 0.4);
+    }
+
+    // ═══════════════════════════════════════════
+    // INTERSECTION OBSERVER — Simple reveal
+    // ═══════════════════════════════════════════
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          gsap.to(entry.target, {
+            opacity: 1, y: 0, duration: 0.6, ease: 'power2.out'
+          });
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.animate-reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // SECTION LABELS — Slide in from left
+    // ═══════════════════════════════════════════
+    const labelObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(entry.target,
+            { opacity: 0, x: -20 },
+            { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }
+          );
+          labelObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.section-label').forEach(el => {
+      labelObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // BENTO CARDS — Stagger reveal
+    // ═══════════════════════════════════════════
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(entry.target,
+            { opacity: 0, y: 30, scale: 0.96 },
+            {
+              opacity: 1, y: 0, scale: 1,
+              duration: 0.5,
+              delay: i * 0.06,
+              ease: 'power2.out'
+            }
+          );
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.bento-card').forEach(el => {
+      cardObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // SVG BLUEPRINT DRAW — Stroke animation
+    // ═══════════════════════════════════════════
+    const drawObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const paths = entry.target.querySelectorAll('path, circle, line, polyline, rect');
+          paths.forEach(path => {
+            try {
+              const length = path.getTotalLength ? path.getTotalLength() : 200;
+              path.style.strokeDasharray = length;
+              path.style.strokeDashoffset = length;
+              gsap.to(path, {
+                strokeDashoffset: 0,
+                duration: 1.5,
+                ease: 'power1.inOut'
+              });
+            } catch(e) {}
+          });
+          drawObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.bp-draw').forEach(el => {
+      drawObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // MATH/CODE DECORATIONS — Fade in
+    // ═══════════════════════════════════════════
+    const mathObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(entry.target,
+            { opacity: 0, x: -10 },
+            { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }
+          );
+          mathObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.bp-math, .bp-code, .bp-dim').forEach(el => {
+      mathObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // FLIP CARDS — 3D flip on scroll
+    // ═══════════════════════════════════════════
+    const flipObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(entry.target,
+            { rotationX: 80, opacity: 0 },
+            {
+              rotationX: 0, opacity: 1,
+              transformPerspective: 600,
+              ease: 'back.out(1.4)',
+              duration: 0.6,
+              delay: i * 0.08
+            }
+          );
+          flipObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.flip-card').forEach(el => {
+      flipObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // TIMELINE — Line draw + items cascade
+    // ═══════════════════════════════════════════
+    const timelinePath = document.querySelector('.timeline-path');
+    if (timelinePath) {
+      try {
+        const length = timelinePath.getTotalLength();
+        timelinePath.style.strokeDasharray = length;
+        timelinePath.style.strokeDashoffset = length;
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              gsap.to(timelinePath, {
+                strokeDashoffset: 0,
+                duration: 2,
+                ease: 'power1.inOut'
+              });
+              timelineObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        timelineObserver.observe(document.querySelector('.timeline'));
+      } catch(e) {}
+    }
+
+    // Timeline items
+    const timelineItemObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(entry.target,
+            { opacity: 0, x: i % 2 === 0 ? -30 : 30 },
+            {
+              opacity: 1, x: 0,
+              duration: 0.5,
+              delay: i * 0.1,
+              ease: 'power2.out'
+            }
+          );
+          timelineItemObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.timeline-item').forEach(el => {
+      timelineItemObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // SOCIAL CARDS — Bounce in
+    // ═══════════════════════════════════════════
+    const socialObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          gsap.fromTo(entry.target,
+            { y: 40, opacity: 0, scale: 0.9 },
+            {
+              y: 0, opacity: 1, scale: 1,
+              ease: 'back.out(1.7)',
+              duration: 0.5,
+              delay: i * 0.1
+            }
+          );
+          socialObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.social-card').forEach(el => {
+      socialObserver.observe(el);
+    });
+
+    // ═══════════════════════════════════════════
+    // CAVEAT BOX — Fade in
+    // ═══════════════════════════════════════════
+    const infoBox = document.querySelector('.info-box');
+    if (infoBox) {
+      const boxObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            gsap.fromTo(entry.target,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+            );
+            boxObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      boxObserver.observe(infoBox);
+    }
+
+    // ═══════════════════════════════════════════
+    // GEOMETRIC DECORATIONS — Parallax on scroll
+    // ═══════════════════════════════════════════
+    gsap.utils.toArray('.bp-deco').forEach((el, i) => {
+      gsap.to(el, {
+        y: -30 * (i % 3 + 1),
+        rotation: 60 * (i % 2 === 0 ? 1 : -1),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 2
+        }
       });
     });
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card, { rotationY: 0, rotationX: 0, duration: 0.5, ease: 'power2.out' });
+
+    // ═══════════════════════════════════════════
+    // CARD HOVER — 3D tilt
+    // ═══════════════════════════════════════════
+    document.querySelectorAll('.bento-card, .social-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(card, {
+          rotationY: x * 10,
+          rotationX: -y * 10,
+          transformPerspective: 800,
+          duration: 0.25,
+          ease: 'power2.out'
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          rotationY: 0, rotationX: 0,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+      });
     });
+
+    // ═══════════════════════════════════════════
+    // MAGNETIC BUTTONS
+    // ═══════════════════════════════════════════
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(btn, { x: x * 0.12, y: y * 0.12, duration: 0.2, ease: 'power2.out' });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.35, ease: 'elastic.out(1, 0.5)' });
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // FILTER
+    // ═══════════════════════════════════════════
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const bentoCards = document.querySelectorAll('.bento-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        bentoCards.forEach((card, i) => {
+          const show = filter === 'all' || card.dataset.category === filter;
+          gsap.to(card, {
+            opacity: show ? 1 : 0.1,
+            scale: show ? 1 : 0.95,
+            duration: 0.35,
+            delay: show ? i * 0.03 : 0,
+            ease: 'power2.out'
+          });
+        });
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // PAGE HERO — Entrance
+    // ═══════════════════════════════════════════
+    const pageHero = document.querySelector('.page-hero');
+    if (pageHero) {
+      const phTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      phTl
+        .from('.page-hero .section-label', { opacity: 0, y: 15, duration: 0.4 })
+        .from('.page-hero .section-title', { opacity: 0, y: 30, duration: 0.6 }, '-=0.2')
+        .from('.page-hero .section-desc', { opacity: 0, y: 15, duration: 0.5 }, '-=0.3');
+    }
+
+    // ═══════════════════════════════════════════
+    // FOOTER — Slide up
+    // ═══════════════════════════════════════════
+    const footer = document.querySelector('.footer');
+    if (footer) {
+      const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            gsap.fromTo(entry.target,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+            );
+            footerObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      footerObserver.observe(footer);
+    }
   });
-}
 
-initGSAP();
-
-// Project filtering
-const filterBtns = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    
-    const filter = btn.dataset.filter;
-    projectCards.forEach((card, i) => {
-      const shouldShow = filter === 'all' || card.dataset.category === filter;
-      if (shouldShow) {
-        card.style.display = '';
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px) scale(0.95)';
-        setTimeout(() => {
-          card.style.transition = 'opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0) scale(1)';
-        }, i * 80);
-      } else {
-        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(10px) scale(0.95)';
-        setTimeout(() => { card.style.display = 'none'; }, 300);
+  // ═══════════════════════════════════════════
+  // NAV TOGGLE
+  // ═══════════════════════════════════════════
+  const menuButton = document.getElementById('menuButton');
+  const nav = document.getElementById('mainNav');
+  if (menuButton && nav) {
+    menuButton.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      const isOpen = nav.classList.contains('open');
+      menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    });
+    document.addEventListener('click', e => {
+      if (!nav.contains(e.target) && !menuButton.contains(e.target)) {
+        nav.classList.remove('open');
       }
     });
-  });
-});
-
-// Liquid shine on cards
-document.querySelectorAll('.glass-card, .highlight-card, .project-card').forEach(card => {
-  card.classList.add('liquid-shine');
-});
-
-// Dynamic orb movement on mouse
-document.addEventListener('mousemove', (e) => {
-  const x = e.clientX / window.innerWidth;
-  const y = e.clientY / window.innerHeight;
-  document.querySelectorAll('.orb').forEach((orb, i) => {
-    const speed = (i + 1) * 10;
-    const xOffset = (x - 0.5) * speed;
-    const yOffset = (y - 0.5) * speed;
-    orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-  });
-});
-
-// Scroll progress bar
-const progressBar = document.createElement('div');
-progressBar.style.cssText = `
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--green-primary), var(--green-accent), #06b6d4);
-  z-index: 10000;
-  transition: width 0.1s ease;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-`;
-document.body.appendChild(progressBar);
-
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
-  progressBar.style.width = scrollPercent + '%';
-});
-
-// Contact form handling
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = contactForm.querySelector('button[type="submit"]');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-      Message Sent!
-    `;
-    btn.style.background = 'linear-gradient(135deg, #22c55e, #10b981)';
-    setTimeout(() => {
-      btn.innerHTML = originalText;
-      btn.style.background = '';
-      contactForm.reset();
-    }, 3000);
-  });
-}
+  }
+})();

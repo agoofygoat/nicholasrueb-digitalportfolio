@@ -1,0 +1,66 @@
+<h2>Texture & Material Direction</h2>
+<p class="subtitle">How should the site feel tactile? Pick the texture approach that fits.</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #F5F0E1; padding: 20px; position: relative; overflow: hidden;">
+      <div style="position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><filter id=%22n%22><feTurbulence baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%22 height=%22100%22 filter=%22url(%23n)%22 opacity=%220.08%22/></svg>'); opacity: 0.5;"></div>
+      <div style="position: relative; z-index: 1;">
+        <div style="background: white; border-radius: 8px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #E5D5B8;">
+          <div style="font-size: 11px; color: #92400E; text-transform: uppercase; letter-spacing: 2px; font-family: sans-serif; margin-bottom: 8px;">Card Element</div>
+          <div style="height: 60px; background: linear-gradient(135deg, #F5F0E1, #E8DCC8); border-radius: 6px; border: 1px dashed #C4A77D;"></div>
+          <div style="font-size: 12px; color: #450A0A; margin-top: 8px;">Paper grain + soft shadows</div>
+        </div>
+        <div style="position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; background: #FEF3C7; border-radius: 50%; border: 2px dashed #C4A77D; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #92400E; transform: rotate(12deg);">✦</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Paper Craft</h3>
+      <p>Subtle paper grain texture on backgrounds. Cards feel like cut paper with soft shadows. Dashed borders, hand-drawn accents. Warm, tactile, like a real workshop notebook.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #1A1A1A; padding: 20px; position: relative; overflow: hidden;">
+      <div style="position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22><rect width=%224%22 height=%224%22 fill=%22%23111%22/><rect width=%221%22 height=%221%22 fill=%22%231a1a1a%22/></svg>'); opacity: 0.8;"></div>
+      <div style="position: relative; z-index: 1;">
+        <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(4px);">
+          <div style="font-size: 11px; color: #C4A77D; text-transform: uppercase; letter-spacing: 2px; font-family: sans-serif; margin-bottom: 8px;">Card Element</div>
+          <div style="height: 60px; background: linear-gradient(135deg, rgba(196,167,125,0.1), rgba(196,167,125,0.05)); border-radius: 6px; border: 1px solid rgba(196,167,125,0.2);"></div>
+          <div style="font-size: 12px; color: #D4C4A8; margin-top: 8px;">Dark noise + warm accents</div>
+        </div>
+        <div style="position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: 1px dashed rgba(196,167,125,0.3); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #C4A77D; transform: rotate(-8deg);">✦</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Dark Workshop</h3>
+      <p>Dark backgrounds with fine noise grain. Cards are frosted glass with warm kraft accents. Like a dimly lit maker space — moody but inviting. High contrast text.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #FEF3C7; padding: 20px; position: relative; overflow: hidden;">
+      <div style="position: absolute; inset: 0; opacity: 0.15;">
+        <div style="position: absolute; top: 10%; left: 5%; width: 90%; height: 1px; background: repeating-linear-gradient(90deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+        <div style="position: absolute; top: 30%; left: 5%; width: 90%; height: 1px; background: repeating-linear-gradient(90deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+        <div style="position: absolute; top: 50%; left: 5%; width: 90%; height: 1px; background: repeating-linear-gradient(90deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+        <div style="position: absolute; top: 70%; left: 5%; width: 90%; height: 1px; background: repeating-linear-gradient(90deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+        <div style="position: absolute; top: 90%; left: 5%; width: 90%; height: 1px; background: repeating-linear-gradient(90deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+        <div style="position: absolute; top: 5%; left: 15%; width: 1px; height: 90%; background: repeating-linear-gradient(180deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+        <div style="position: absolute; top: 5%; left: 50%; width: 1px; height: 90%; background: repeating-linear-gradient(180deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+        <div style="position: absolute; top: 5%; left: 85%; width: 1px; height: 90%; background: repeating-linear-gradient(180deg, #C4A77D 0, #C4A77D 4px, transparent 4px, transparent 8px);"></div>
+      </div>
+      <div style="position: relative; z-index: 1;">
+        <div style="background: white; border-radius: 4px; padding: 16px; box-shadow: 2px 3px 0 #C4A77D; border: 1px solid #D4C4A8;">
+          <div style="font-size: 11px; color: #92400E; text-transform: uppercase; letter-spacing: 2px; font-family: sans-serif; margin-bottom: 8px;">Card Element</div>
+          <div style="height: 60px; background: #F5F0E1; border-radius: 4px; border: 1px solid #E5D5B8;"></div>
+          <div style="font-size: 12px; color: #450A0A; margin-top: 8px;">Grid paper + offset shadows</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Graph Paper</h3>
+      <p>Graph/grid paper texture as background. Cards have offset colored shadows (like stacked paper). Feels like an engineering sketchbook — structured but handmade.</p>
+    </div>
+  </div>
+</div>

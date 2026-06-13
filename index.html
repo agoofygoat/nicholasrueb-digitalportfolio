@@ -1,42 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nicholas Rueb | Digital Portfolio</title>
-  <meta name="description" content="High school student building robotics, software, and engineering projects with pro-level workflows." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nicholas Rueb | Maker's Portfolio</title>
+  <meta name="description" content="Robotics, software, and engineering projects by Nicholas Rueb.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
-  <canvas id="particleCanvas"></canvas>
-  
-  <div class="grid-overlay"></div>
-  <div class="scan-line"></div>
-  
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-  
-  <div class="liquid-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
+  <!-- Blueprint Decorative Elements -->
+  <div class="bp-math" style="top: 140px; left: 3%; transform: rotate(-12deg);">f(x) = ax² + bx + c</div>
+  <div class="bp-code" style="top: 300px; right: 3%;">const solve = (n) => {</div>
+  <div class="bp-math" style="top: 55%; left: 2%; transform: rotate(8deg);">∫₀^∞ e^(-x²) dx = √π</div>
+  <div class="bp-code" style="bottom: 20%; right: 4%;">return result;</div>
+  <div class="bp-dim" style="top: 180px; right: 6%;">d = √((x₂-x₁)² + (y₂-y₁)²)</div>
+
+  <svg class="bp-deco bp-crosshair" style="top: 80px; right: 5%;" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="0.8"/>
+    <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="100" y1="10" x2="100" y2="190" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="10" y1="100" x2="190" y2="100" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="100" y1="20" x2="106" y2="20" stroke="currentColor" stroke-width="0.8"/>
+    <line x1="100" y1="180" x2="106" y2="180" stroke="currentColor" stroke-width="0.8"/>
+    <line x1="20" y1="100" x2="20" y2="106" stroke="currentColor" stroke-width="0.8"/>
+    <line x1="180" y1="100" x2="180" y2="106" stroke="currentColor" stroke-width="0.8"/>
+  </svg>
+
+  <svg class="bp-deco bp-circle" style="bottom: 15%; left: 3%;" viewBox="0 0 120 120">
+    <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="4 4"/>
+    <circle cx="60" cy="60" r="30" fill="none" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="60" y1="5" x2="60" y2="20" stroke="currentColor" stroke-width="0.6"/>
+    <line x1="60" y1="100" x2="60" y2="115" stroke="currentColor" stroke-width="0.6"/>
+    <line x1="5" y1="60" x2="20" y2="60" stroke="currentColor" stroke-width="0.6"/>
+    <line x1="100" y1="60" x2="115" y2="60" stroke="currentColor" stroke-width="0.6"/>
+  </svg>
+
+  <svg class="bp-deco bp-dimension" style="top: 45%; left: 2%;" viewBox="0 0 240 40">
+    <line x1="10" y1="20" x2="230" y2="20" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="10" y1="12" x2="10" y2="28" stroke="currentColor" stroke-width="0.8"/>
+    <line x1="230" y1="12" x2="230" y2="28" stroke="currentColor" stroke-width="0.8"/>
+    <line x1="10" y1="20" x2="20" y2="15" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="10" y1="20" x2="20" y2="25" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="230" y1="20" x2="220" y2="15" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="230" y1="20" x2="220" y2="25" stroke="currentColor" stroke-width="0.5"/>
+  </svg>
 
   <div class="page-shell">
     <header class="topbar">
       <a class="brand" href="index.html">
-        <span class="brand-glow">NR</span>
+        <div class="brand-mark">NR</div>
         <span class="brand-text">Nicholas Rueb</span>
       </a>
       <nav class="main-nav" id="mainNav">
         <a href="index.html" class="active">Home</a>
         <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
+        <a href="social.html">Social</a>
       </nav>
       <button class="menu-button" id="menuButton" aria-label="Open navigation">
         <span></span><span></span><span></span>
@@ -44,170 +67,171 @@
     </header>
 
     <main>
-      <section class="hero" id="home">
-        <div class="hero-content">
-          <div class="hero-badge animate-reveal">
-            <span class="badge-dot"></span>
-            <span>Available for collaboration</span>
-          </div>
-          <h1 class="hero-title animate-reveal">
-            <span class="title-line">Designing</span>
-            <span class="title-line gradient-text">Future-Ready</span>
-            <span class="title-line">Systems</span>
-          </h1>
-          <p class="hero-subtitle animate-reveal">
-            High school student building robotics, software, and engineering projects 
-            with polished UX and pro-level workflows.
-          </p>
-          <div class="hero-stats animate-reveal">
-            <div class="stat">
-              <span class="stat-value" data-count="12">0</span>
-              <span class="stat-label">Projects</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value" data-count="3">0</span>
-              <span class="stat-label">Years Coding</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value" data-count="5">0</span>
-              <span class="stat-label">Awards</span>
-            </div>
-          </div>
-          <div class="hero-actions animate-reveal">
-            <a class="button primary magnetic" href="projects.html">
-              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              Explore Projects
-            </a>
-            <a class="button secondary magnetic" href="contact.html">
-              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              Get in Touch
-            </a>
-          </div>
+      <section class="hero">
+        <!-- Hero crosshair SVG -->
+        <svg class="hero-crosshair bp-draw" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;opacity:0.12;" viewBox="0 0 500 500">
+          <circle cx="250" cy="250" r="200" fill="none" stroke="rgba(100,160,255,0.4)" stroke-width="0.8"/>
+          <circle cx="250" cy="250" r="120" fill="none" stroke="rgba(100,160,255,0.3)" stroke-width="0.5"/>
+          <circle cx="250" cy="250" r="50" fill="none" stroke="rgba(100,160,255,0.5)" stroke-width="1"/>
+          <line x1="250" y1="30" x2="250" y2="470" stroke="rgba(100,160,255,0.2)" stroke-width="0.5"/>
+          <line x1="30" y1="250" x2="470" y2="250" stroke="rgba(100,160,255,0.2)" stroke-width="0.5"/>
+          <line x1="250" y1="30" x2="265" y2="30" stroke="rgba(100,160,255,0.5)" stroke-width="1"/>
+          <line x1="250" y1="470" x2="265" y2="470" stroke="rgba(100,160,255,0.5)" stroke-width="1"/>
+          <line x1="30" y1="250" x2="30" y2="265" stroke="rgba(100,160,255,0.5)" stroke-width="1"/>
+          <line x1="470" y1="250" x2="470" y2="265" stroke="rgba(100,160,255,0.5)" stroke-width="1"/>
+          <text x="250" y="28" text-anchor="middle" fill="rgba(100,160,255,0.3)" font-size="10" font-family="Space Grotesk">0°</text>
+          <text x="475" y="254" fill="rgba(100,160,255,0.3)" font-size="10" font-family="Space Grotesk">90°</text>
+          <text x="250" y="490" text-anchor="middle" fill="rgba(100,160,255,0.3)" font-size="10" font-family="Space Grotesk">180°</text>
+          <text x="15" y="254" fill="rgba(100,160,255,0.3)" font-size="10" font-family="Space Grotesk">270°</text>
+        </svg>
+
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Open to collaborations</span>
         </div>
-        
-        <div class="hero-visual">
-          <div class="hero-card glass-card animate-reveal">
-            <div class="card-header">
-              <span class="card-tag">Featured Skills</span>
-              <div class="card-dots">
-                <span></span><span></span><span></span>
+        <h1 class="hero-title">Hi, I'm Nicholas</h1>
+        <span class="hero-accent">robotics · software · engineering</span>
+        <p class="hero-subtitle">
+          I build robots, code apps, and design things that solve real problems.
+          High school student with a passion for engineering and clean UX.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="projects.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            View Projects
+          </a>
+          <a class="btn btn-secondary" href="social.html">Get in Touch</a>
+        </div>
+        <div class="bp-math" style="margin-top:40px;opacity:0.3;">θ = atan2(y, x)</div>
+      </section>
+
+      <section class="section blueprint-reveal">
+        <div class="section-label">// what I do</div>
+        <h2 class="section-title split-text">Build. Code. Design.</h2>
+        <p class="section-desc">
+          From autonomous robots to polished web apps, I enjoy the full process of making things work.
+        </p>
+
+        <div class="bento-grid">
+          <a href="projects.html" class="bento-card featured" data-category="design">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="120" height="120" viewBox="0 0 120 120" style="opacity:0.2;">
+                <path d="M20 80 L40 30 L60 70 L80 20 L100 60"/>
+                <circle cx="40" cy="30" r="4"/>
+                <circle cx="80" cy="20" r="4"/>
+                <line x1="10" y1="100" x2="110" y2="100"/>
+                <line x1="10" y1="100" x2="10" y2="10"/>
+              </svg>
+              <div class="card-overlay">
+                <span class="card-label">FEATURED</span>
+                <span class="card-tag">Design</span>
+                <h3>NovaLine</h3>
+                <p>Personal graphic design firm creating brand identities, visual systems, and marketing materials.</p>
+                <div class="project-tags">
+                  <span>Graphic Design</span><span>Branding</span><span>UI/UX</span>
+                </div>
               </div>
             </div>
-            <div class="skills-grid">
-              <div class="skill-item">
-                <div class="skill-icon">
-                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                </div>
-                <div class="skill-info">
-                  <span class="skill-name">Coding</span>
-                  <span class="skill-detail">Python, JavaScript, C++</span>
-                </div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-icon">
-                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                </div>
-                <div class="skill-info">
-                  <span class="skill-name">Robotics</span>
-                  <span class="skill-detail">Sensors, control systems</span>
-                </div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-icon">
-                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                </div>
-                <div class="skill-info">
-                  <span class="skill-name">Engineering</span>
-                  <span class="skill-detail">CAD, prototyping</span>
-                </div>
+          </a>
+
+          <a href="projects.html" class="bento-card" data-category="coding">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="80" height="80" viewBox="0 0 80 80" style="opacity:0.2;">
+                <rect x="10" y="10" width="60" height="40" rx="4"/>
+                <line x1="10" y1="60" x2="30" y2="70"/><line x1="70" y1="60" x2="50" y2="70"/>
+                <line x1="30" y1="70" x2="50" y2="70"/>
+              </svg>
+              <div class="card-overlay">
+                <span class="card-tag">Coding</span>
+                <h3>FRC Simulator</h3>
+                <div class="project-tags"><span>JavaScript</span><span>Data</span></div>
               </div>
             </div>
-          </div>
+          </a>
+
+          <a href="projects.html" class="bento-card" data-category="social-impact">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="80" height="80" viewBox="0 0 80 80" style="opacity:0.2;">
+                <circle cx="30" cy="25" r="10"/><circle cx="55" cy="25" r="10"/>
+                <path d="M15 55 Q40 40 65 55"/>
+              </svg>
+              <div class="card-overlay">
+                <span class="card-label">IMPACT</span>
+                <span class="card-tag">Social Impact</span>
+                <h3>Fireside</h3>
+                <div class="project-tags"><span>UX Design</span><span>App</span></div>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects.html" class="bento-card wide" data-category="robotics">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="160" height="80" viewBox="0 0 160 80" style="opacity:0.2;">
+                <circle cx="40" cy="40" r="15"/><circle cx="120" cy="40" r="15"/>
+                <rect x="30" y="20" width="100" height="40" rx="4"/>
+                <circle cx="80" cy="30" r="5"/>
+              </svg>
+              <div class="card-overlay">
+                <span class="card-label">COMPLEX</span>
+                <span class="card-tag">Robotics</span>
+                <h3>Autonomous Rescue Bot</h3>
+                <p>Navigate obstacles, locate targets using sensors and path planning.</p>
+                <div class="project-tags"><span>C++</span><span>Arduino</span><span>Sensors</span></div>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects.html" class="bento-card" data-category="engineering">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="80" height="80" viewBox="0 0 80 80" style="opacity:0.2;">
+                <rect x="15" y="15" width="50" height="50" rx="2"/>
+                <line x1="15" y1="40" x2="65" y2="40" stroke-dasharray="4 2"/>
+                <line x1="40" y1="15" x2="40" y2="65" stroke-dasharray="4 2"/>
+              </svg>
+              <div class="card-overlay">
+                <span class="card-tag">Engineering</span>
+                <h3>Smart Workbench</h3>
+                <div class="project-tags"><span>SolidWorks</span><span>CAD</span></div>
+              </div>
+            </div>
+          </a>
+
+          <a href="projects.html" class="bento-card tall" data-category="coding">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="60" height="120" viewBox="0 0 60 120" style="opacity:0.2;">
+                <polyline points="10 20 30 10 50 20"/>
+                <polyline points="10 50 30 40 50 50"/>
+                <polyline points="10 80 30 70 50 80"/>
+                <polyline points="10 110 30 100 50 110"/>
+              </svg>
+              <div class="card-overlay">
+                <span class="card-label">NEW</span>
+                <span class="card-tag">Coding</span>
+                <h3>Automation Toolkit</h3>
+                <div class="project-tags"><span>Python</span><span>CLI</span></div>
+              </div>
+            </div>
+          </a>
         </div>
       </section>
 
-      <section class="section-panel" id="about">
-        <div class="section-header">
-          <div class="section-tag animate-reveal">
-            <span class="tag-line"></span>
-            <span>About Me</span>
-          </div>
-          <h2 class="section-title animate-reveal">
-            Creating work that feels 
-            <span class="gradient-text">intuitive, reliable, and modern.</span>
-          </h2>
-        </div>
-        <div class="about-content animate-reveal">
-          <div class="about-text">
-            <p>I combine code, robotics, and engineering to build portfolio work that is both technically strong and user-focused. I enjoy solving problems, collaborating on teams, and sharing projects that make an impact.</p>
-          </div>
-          <div class="about-cards">
-            <div class="glass-card about-card">
-              <h3>Interests</h3>
-              <p>UX design, embedded systems, automation, open-source, STEM mentorship.</p>
-            </div>
-            <div class="glass-card about-card">
-              <h3>Skills</h3>
-              <p>JavaScript, Python, C++, HTML/CSS, Figma, Graphic Design, Arduino, ROS.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-panel" id="highlights">
-        <div class="section-header">
-          <div class="section-tag animate-reveal">
-            <span class="tag-line"></span>
-            <span>Portfolio Highlights</span>
-          </div>
-          <h2 class="section-title animate-reveal">
-            What I <span class="gradient-text">build and create.</span>
-          </h2>
-        </div>
-        <div class="highlights-grid">
-          <a href="projects.html" class="highlight-card glass-card animate-reveal magnetic">
-            <div class="highlight-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h3>Personal Projects</h3>
-            <p>Interactive apps, automation tools, and polished UI experiences.</p>
-            <span class="highlight-arrow">&rarr;</span>
-          </a>
-          <a href="projects.html" class="highlight-card glass-card animate-reveal delay-1 magnetic">
-            <div class="highlight-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            </div>
-            <h3>Robotics</h3>
-            <p>Autonomous systems, competitive builds, and control logic.</p>
-            <span class="highlight-arrow">&rarr;</span>
-          </a>
-          <a href="projects.html" class="highlight-card glass-card animate-reveal delay-2 magnetic">
-            <div class="highlight-icon">
-              <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            </div>
-            <h3>Engineering</h3>
-            <p>Product design, mechanical prototypes, and systems documentation.</p>
-            <span class="highlight-arrow">&rarr;</span>
-          </a>
-        </div>
-      </section>
-
-      <section class="section-panel cta-section">
-        <div class="cta-content animate-reveal">
-          <h2>Ready to collaborate?</h2>
-          <p>Let's build something amazing together.</p>
-          <a class="button primary magnetic" href="contact.html">
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Contact Me
-          </a>
-        </div>
+      <section class="section" style="text-align:center;">
+        <div class="section-label">// collaboration</div>
+        <h2 class="section-title split-text">Want to collaborate?</h2>
+        <p class="section-desc" style="margin:0 auto 24px;">
+          Always open to new projects, ideas, and conversations.
+        </p>
+        <a class="btn btn-primary" href="social.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Get in Touch
+        </a>
       </section>
     </main>
 
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-brand">
-          <span class="brand-glow">NR</span>
+          <div class="brand-mark" style="width:28px;height:28px;font-size:0.7rem;">NR</div>
           <span>Built by Nicholas Rueb</span>
         </div>
         <div class="footer-links">

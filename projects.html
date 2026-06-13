@@ -1,225 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects | Nicholas Rueb</title>
-  <meta name="description" content="Explore my coding, robotics, and engineering projects." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Explore robotics, coding, and design projects by Nicholas Rueb.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
-  <canvas id="particleCanvas"></canvas>
-  
-  <div class="grid-overlay"></div>
-  <div class="scan-line"></div>
-  
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-  
-  <div class="liquid-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
+  <div class="bp-math" style="top: 120px; left: 4%; transform: rotate(-6deg);">Σ(i=1 to n) xᵢ</div>
+  <div class="bp-code" style="top: 200px; right: 3%;">$ git log --oneline</div>
+  <div class="bp-dim" style="bottom: 30%; left: 3%;">Δt = t₂ - t₁</div>
+
+  <svg class="bp-deco bp-crosshair" style="top: 60px; right: 4%;" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="0.8"/>
+    <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="100" y1="10" x2="100" y2="190" stroke="currentColor" stroke-width="0.5"/>
+    <line x1="10" y1="100" x2="190" y2="100" stroke="currentColor" stroke-width="0.5"/>
+  </svg>
+  <svg class="bp-deco bp-circle" style="bottom: 10%; left: 4%;" viewBox="0 0 120 120">
+    <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="4 4"/>
+    <circle cx="60" cy="60" r="30" fill="none" stroke="currentColor" stroke-width="0.4"/>
+  </svg>
 
   <div class="page-shell">
     <header class="topbar">
-      <a class="brand" href="index.html">
-        <span class="brand-glow">NR</span>
-        <span class="brand-text">Nicholas Rueb</span>
-      </a>
+      <a class="brand" href="index.html"><div class="brand-mark">NR</div><span class="brand-text">Nicholas Rueb</span></a>
       <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
         <a href="projects.html" class="active">Projects</a>
-        <a href="contact.html">Contact</a>
+        <a href="social.html">Social</a>
       </nav>
-      <button class="menu-button" id="menuButton" aria-label="Open navigation">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="menu-button" id="menuButton" aria-label="Open navigation"><span></span><span></span><span></span></button>
     </header>
 
     <main>
       <section class="page-hero">
-        <div class="page-hero-content">
-          <div class="section-tag animate-reveal">
-            <span class="tag-line"></span>
-            <span>Projects</span>
-          </div>
-          <h1 class="page-title animate-reveal">
-            My <span class="gradient-text">Work</span>
-          </h1>
-          <p class="page-subtitle animate-reveal">
-            Coding, robotics, and engineering projects that solve real problems.
-          </p>
-        </div>
+        <div class="section-label">the work</div>
+        <h1 class="section-title">My <span style="color:var(--accent-blue);">Projects</span></h1>
+        <p class="section-desc" style="margin:0 auto;">Coding, robotics, and engineering projects that solve real problems.</p>
+        <div class="bp-math" style="margin-top:20px;opacity:0.3;">// selected works</div>
       </section>
 
-      <section class="section-panel">
-        <div class="project-filters animate-reveal">
+      <section class="section">
+        <div class="project-filters">
           <button class="filter-btn active" data-filter="all">All</button>
           <button class="filter-btn" data-filter="coding">Coding</button>
           <button class="filter-btn" data-filter="design">Design</button>
           <button class="filter-btn" data-filter="social-impact">Social Impact</button>
+          <button class="filter-btn" data-filter="robotics">Robotics</button>
+          <button class="filter-btn" data-filter="engineering">Engineering</button>
         </div>
 
-        <div class="projects-grid">
-          <article class="project-card glass-card animate-reveal magnetic" data-category="design">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-              </div>
-            </div>
-            <div class="project-content">
-              <span class="project-category">Design</span>
-              <h3>NovaLine</h3>
-              <p>Personal graphic design firm creating brand identities, visual systems, and marketing materials.</p>
-              <div class="project-tags">
-                <span>Graphic Design</span>
-                <span>Branding</span>
-                <span>UI/UX</span>
-              </div>
-              <div class="project-links">
-                <a href="https://novaline.novastudios.workers.dev/" target="_blank" rel="noopener" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  Live Site
-                </a>
+        <div class="bento-grid">
+          <article class="bento-card featured" data-category="design">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="120" height="120" viewBox="0 0 120 120" style="opacity:0.2;"><path d="M20 80 L40 30 L60 70 L80 20 L100 60"/><circle cx="40" cy="30" r="4"/><circle cx="80" cy="20" r="4"/></svg>
+              <div class="card-overlay">
+                <span class="card-label">FEATURED</span>
+                <span class="card-tag">Design</span>
+                <h3>NovaLine</h3>
+                <p>Personal graphic design firm creating brand identities, visual systems, and marketing materials.</p>
+                <div class="project-tags"><span>Graphic Design</span><span>Branding</span><span>UI/UX</span></div>
+                <div class="project-links">
+                  <a href="https://novaline.novastudios.workers.dev/" target="_blank" rel="noopener" class="project-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Live Site</a>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card glass-card animate-reveal delay-1 magnetic" data-category="coding">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
-            </div>
-            <div class="project-content">
-              <span class="project-category">Coding</span>
-              <h3>FRC Prediction Simulator</h3>
-              <p>Simulation tool for predicting FIRST Robotics Competition match outcomes and alliance performance.</p>
-              <div class="project-tags">
-                <span>JavaScript</span>
-                <span>Data Analysis</span>
-                <span>FRC</span>
-              </div>
-              <div class="project-links">
-                <a href="https://frc-prediction-simulator-github-bpac3yrm8-agoofygoats-projects.vercel.app/" target="_blank" rel="noopener" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  Live Demo
-                </a>
+          <article class="bento-card" data-category="coding">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="80" height="80" viewBox="0 0 80 80" style="opacity:0.2;"><rect x="10" y="10" width="60" height="40" rx="4"/><line x1="10" y1="60" x2="30" y2="70"/><line x1="70" y1="60" x2="50" y2="70"/></svg>
+              <div class="card-overlay">
+                <span class="card-tag">Coding</span>
+                <h3>FRC Prediction Simulator</h3>
+                <p>Simulation tool for predicting FIRST Robotics Competition match outcomes.</p>
+                <div class="project-tags"><span>JavaScript</span><span>Data Analysis</span><span>FRC</span></div>
+                <div class="project-links">
+                  <a href="https://frc-prediction-simulator-github-bpac3yrm8-agoofygoats-projects.vercel.app/" target="_blank" rel="noopener" class="project-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>Live Demo</a>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card glass-card animate-reveal delay-2 magnetic" data-category="social-impact">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-            </div>
-            <div class="project-content">
-              <span class="project-category">Social Impact</span>
-              <h3>Fireside</h3>
-              <p>App helping those in poverty access welfare assistance and support resources they need.</p>
-              <div class="project-tags">
-                <span>UX Design</span>
-                <span>Social Good</span>
-                <span>App Design</span>
-              </div>
-              <div class="project-links">
-                <a href="https://designthinking.mad-learn.com/devicepreview/?appId=VTJGc2RHVmtYMThVKzFOQWxnbXFoSjNiWHJkY1ZEQXlkYWduRmpDZDQ4UT0=" target="_blank" rel="noopener" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                  Live Demo
-                </a>
+          <article class="bento-card" data-category="social-impact">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="80" height="80" viewBox="0 0 80 80" style="opacity:0.2;"><circle cx="30" cy="25" r="10"/><circle cx="55" cy="25" r="10"/><path d="M15 55 Q40 40 65 55"/></svg>
+              <div class="card-overlay">
+                <span class="card-label">IMPACT</span>
+                <span class="card-tag">Social Impact</span>
+                <h3>Fireside</h3>
+                <p>App helping those in poverty access welfare assistance and support resources.</p>
+                <div class="project-tags"><span>UX Design</span><span>Social Good</span><span>App Design</span></div>
+                <div class="project-links">
+                  <a href="https://designthinking.mad-learn.com/devicepreview/?appId=VTJGc2RHVmtYMThVKzFOQWxnbXFoSjNiWHJkY1ZEQXlkYWduRmpDZDQ4UT0=" target="_blank" rel="noopener" class="project-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>Live Demo</a>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card glass-card animate-reveal delay-1 magnetic" data-category="robotics">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-              </div>
-            </div>
-            <div class="project-content">
-              <span class="project-category">Robotics</span>
-              <h3>Autonomous Rescue Bot</h3>
-              <p>Prototype robot designed to navigate obstacles and locate recovery targets using sensors and path planning.</p>
-              <div class="project-tags">
-                <span>C++</span>
-                <span>Arduino</span>
-                <span>Sensors</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                  Build Notes
-                </a>
-                <a href="#" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  Video Demo
-                </a>
+          <article class="bento-card wide" data-category="robotics">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="160" height="80" viewBox="0 0 160 80" style="opacity:0.2;"><circle cx="40" cy="40" r="15"/><circle cx="120" cy="40" r="15"/><rect x="30" y="20" width="100" height="40" rx="4"/></svg>
+              <div class="card-overlay">
+                <span class="card-label">COMPLEX</span>
+                <span class="card-tag">Robotics</span>
+                <h3>Autonomous Rescue Bot</h3>
+                <p>Prototype robot designed to navigate obstacles and locate recovery targets using sensors and path planning.</p>
+                <div class="project-tags"><span>C++</span><span>Arduino</span><span>Sensors</span></div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Build Notes</a>
+                  <a href="#" class="project-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Video Demo</a>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card glass-card animate-reveal delay-2 magnetic" data-category="engineering">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-              </div>
-            </div>
-            <div class="project-content">
-              <span class="project-category">Engineering</span>
-              <h3>Smart Workbench System</h3>
-              <p>Modular workbench with integrated tool tracking, documentation, and build-ready schematics.</p>
-              <div class="project-tags">
-                <span>SolidWorks</span>
-                <span>CAD</span>
-                <span>Prototyping</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                  Design Files
-                </a>
-                <a href="#" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                  Read More
-                </a>
+          <article class="bento-card" data-category="engineering">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="80" height="80" viewBox="0 0 80 80" style="opacity:0.2;"><rect x="15" y="15" width="50" height="50" rx="2"/><line x1="15" y1="40" x2="65" y2="40" stroke-dasharray="4 2"/><line x1="40" y1="15" x2="40" y2="65" stroke-dasharray="4 2"/></svg>
+              <div class="card-overlay">
+                <span class="card-tag">Engineering</span>
+                <h3>Smart Workbench System</h3>
+                <p>Modular workbench with integrated tool tracking, documentation, and build-ready schematics.</p>
+                <div class="project-tags"><span>SolidWorks</span><span>CAD</span><span>Prototyping</span></div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Design Files</a>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card glass-card animate-reveal delay-3 magnetic" data-category="coding">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <svg aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-            </div>
-            <div class="project-content">
-              <span class="project-category">Coding</span>
-              <h3>Automation Toolkit</h3>
-              <p>Python utilities for file processing, data analysis, and team productivity automation.</p>
-              <div class="project-tags">
-                <span>Python</span>
-                <span>CLI</span>
-                <span>Automation</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                  Repository
-                </a>
-                <a href="#" class="project-link">
-                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                  Documentation
-                </a>
+          <article class="bento-card tall" data-category="coding">
+            <div class="card-image blueprint-bg">
+              <svg class="bp-draw" width="60" height="120" viewBox="0 0 60 120" style="opacity:0.2;"><polyline points="10 20 30 10 50 20"/><polyline points="10 50 30 40 50 50"/><polyline points="10 80 30 70 50 80"/><polyline points="10 110 30 100 50 110"/></svg>
+              <div class="card-overlay">
+                <span class="card-label">NEW</span>
+                <span class="card-tag">Coding</span>
+                <h3>Automation Toolkit</h3>
+                <p>Python utilities for file processing, data analysis, and team productivity automation.</p>
+                <div class="project-tags"><span>Python</span><span>CLI</span><span>Automation</span></div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>Repository</a>
+                </div>
               </div>
             </div>
           </article>
@@ -229,10 +158,7 @@
 
     <footer class="footer">
       <div class="footer-content">
-        <div class="footer-brand">
-          <span class="brand-glow">NR</span>
-          <span>Built by Nicholas Rueb</span>
-        </div>
+        <div class="footer-brand"><div class="brand-mark" style="width:28px;height:28px;font-size:0.7rem;">NR</div><span>Built by Nicholas Rueb</span></div>
         <div class="footer-links">
           <a href="https://github.com/agoofygoat" target="_blank" rel="noopener">GitHub</a>
           <a href="https://instagram.com/nick_rueb" target="_blank" rel="noopener">Instagram</a>
